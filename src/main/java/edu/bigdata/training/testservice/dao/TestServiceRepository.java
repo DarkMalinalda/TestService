@@ -28,16 +28,14 @@ public class TestServiceRepository {
         return ignite.getOrCreateCache(personCacheConfiguration).get(id);
     }
 
-    public void del(UUID id){
-        ignite.getOrCreateCache(personCacheConfiguration).remove(id);
-    }
-
     public List<PersonEntity> getAll(){
         Iterable<Cache.Entry<UUID,PersonEntity>> iterable = () -> ignite.getOrCreateCache(personCacheConfiguration).iterator();
 
-        return StreamSupport
+        List<PersonEntity> persons = StreamSupport
                 .stream(iterable.spliterator(), false)
                 .map(Cache.Entry::getValue)
                 .collect(Collectors.toList());
+
+        return persons;
     }
 }
