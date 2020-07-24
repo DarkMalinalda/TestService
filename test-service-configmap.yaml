@@ -5,5 +5,5 @@ metadata:
   namespace: default
 data:
   IP_FINDER_ADDRS: 0.0.0.0
-  SSL_KEYSTORE: /app/keystore.p12
-  SSL_TRUSTSTORE: /app/truststore.jks
+  SSL_KEYSTORE: /app/ssl/keystore.p12
+  SSL_TRUSTSTORE: /app/ssl/truststore.jks
