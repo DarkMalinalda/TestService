@@ -1,0 +1,21 @@
+#!groovy
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent {
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("Single step") {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', repoVariable: 'REPO', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh "./build $REPO $USERNAME $PASSWORD"
+                }
+            }
+        }
+    }
+}
