@@ -19,7 +19,7 @@ pipeline {
                         string(credentialsId: 'secret_password', variable: 'PASSWORD'),
                     ]
                 ) {
-                    sh "./build $REPO $USERNAME $PASSWORD"
+                    sh "./build.sh $REPO $USERNAME $PASSWORD"
                 }
             }
         }
