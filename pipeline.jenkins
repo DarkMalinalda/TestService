@@ -12,14 +12,16 @@ pipeline {
     stages {
         stage("Single step") {
             steps {
+            withMaven(){
                 withCredentials(
-                    [
-                        string(credentialsId: 'secret_repo', variable: 'REPO'),
-                        string(credentialsId: 'secret_username', variable: 'USERNAME'),
-                        string(credentialsId: 'secret_password', variable: 'PASSWORD'),
-                    ]
-                ) {
-                    sh "./build.sh $REPO $USERNAME $PASSWORD"
+                        [
+                            string(credentialsId: 'secret_repo', variable: 'REPO'),
+                            string(credentialsId: 'secret_username', variable: 'USERNAME'),
+                            string(credentialsId: 'secret_password', variable: 'PASSWORD'),
+                        ]
+                    ) {
+                        sh "./build.sh $REPO $USERNAME $PASSWORD"
+                    }
                 }
             }
         }
