@@ -12,7 +12,13 @@ pipeline {
     stages {
         stage("Single step") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', repoVariable: 'REPO', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials(
+                    [
+                        string(credentialsId: 'secret_repo', variable: 'REPO'),
+                        string(credentialsId: 'secret_username', variable: 'USERNAME'),
+                        string(credentialsId: 'secret_password', variable: 'PASSWORD'),
+                    ]
+                ) {
                     sh "./build $REPO $USERNAME $PASSWORD"
                 }
             }
