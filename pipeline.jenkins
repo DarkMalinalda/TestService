@@ -6,8 +6,8 @@ pipeline {
         label 'master'
         }
         tools {
-                maven 'Maven 3'
-                jdk 'Default'
+                maven 'maven-3'
+                jdk 'jdk-8'
         }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
