@@ -32,4 +32,10 @@ public class TestBusinessLogicService {
     public List<PersonEntity> processGetAll(){
         return testServiceRepository.getAll();
     }
+	
+	public PersonEntity processUpdate(String id, Person person){
+        PersonEntity personEntity = new PersonEntity(UUID.fromString(id), person.getName());
+        testServiceRepository.save(personEntity);
+        return personEntity;
+    }
 }
