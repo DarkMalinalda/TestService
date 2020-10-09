@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -32,23 +33,55 @@ public class TestBusinessLogicServiceTest {
     private TestServiceRepository testServiceRepository;
 
     @Test
-    public void testCreateAndGet(){
-        //create
+    public void testCreate(){
         Person person = new Person("test");
-
+		
         PersonEntity personEntity = testBusinessLogicService.processCreate(person);
-
+		
         Assert.assertEquals(person.getName(), personEntity.getName());
         Mockito.verify(testServiceRepository, Mockito.times(1)).save(personEntity);
+    }
+	
+	@Test
+    public void testGet(){
+        UUID id=UUID.randomUUID();
+		
+        PersonEntity personEntity  = testBusinessLogicService.processGet(id.toString());
 
-        //getAll
+        Assert.assertEquals("name", personEntity.getName());
+        Mockito.verify(testServiceRepository, Mockito.times(1)).get(id);
+    }
+	
+	@Test
+    public void testGetAll(){
         List<PersonEntity> personEntityList = testBusinessLogicService.processGetAll();
 
         Assert.assertEquals("name1", personEntityList.get(0).getName());
         Assert.assertEquals("name2", personEntityList.get(1).getName());
         Mockito.verify(testServiceRepository, Mockito.times(1)).getAll();
-
     }
+
+	@Test
+    public void testUpdate(){
+        UUID id=UUID.randomUUID();
+        Person person = new Person("new name");
+
+        PersonEntity personEntity = testBusinessLogicService.processUpdate(id.toString(), person);
+
+        Assert.assertEquals(person.getName(), personEntity.getName());
+		Assert.assertEquals(id, personEntity.getId());
+        Mockito.verify(testServiceRepository, Mockito.times(1)).save(personEntity);
+    }
+	
+	@Test
+    public void testDel(){
+        UUID id=UUID.randomUUID();
+		
+        testBusinessLogicService.processDel(id.toString());
+
+        Mockito.verify(testServiceRepository, Mockito.times(1)).del(id);
+    }
+	
 
     @Configuration
     static class TestBusinessLogicServiceTestConfiguration {
