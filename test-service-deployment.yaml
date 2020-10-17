@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: test-service-container
-          image: "docker.io/malinalda/test_service:lab3"
+          image: "docker.io/malinalda/test_service:ssl"
           env:
             - name: SSL_KEYSTORE_PWD
               valueFrom:
