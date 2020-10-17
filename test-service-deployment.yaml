@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: test-service-container
-          image: "docker.io/javapipe2020/testservice:latest"
+          image: "docker.io/malinalda/test_service:lab3"
           env:
             - name: IP_FINDER_ADDRS
               value: "0.0.0.0"
