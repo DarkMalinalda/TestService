@@ -15,6 +15,7 @@ spec:
       containers:
         - name: test-service-container
           image: "docker.io/malinalda/test_service:ssl"
+          imagePullPolicy: Always
           env:
             - name: SSL_KEYSTORE_PWD
               valueFrom:
